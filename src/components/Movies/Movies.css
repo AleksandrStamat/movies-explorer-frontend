@@ -1,0 +1,48 @@
+.movies {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  flex-direction: column;
+  flex-grow: 1;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  padding: 70px 70px 80px;
+}
+
+.movies__more {
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 15px;
+  width: 100%;
+  margin-top: 60px;
+  padding: 10px 0;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+
+@media screen and (max-width: 1280px) {
+  .movies {
+    padding: 70px calc((100vw - 768px) / (1280 - 768) * (70 - 30) + 30px) 80px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movies {
+    padding: 70px calc((100vw - 400px) / (768 - 400) * (30 - 10) + 10px) 80px;
+  }
+
+  .movies__more {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movies {
+    padding: 70px 10px 80px;
+  }
+}
