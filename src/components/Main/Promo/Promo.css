@@ -1,0 +1,99 @@
+.promo {
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  min-height: 560px;
+  max-height: 768px;
+  padding: 50px 70px 60px;
+}
+
+.promo__description {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.promo__title {
+  margin: 0;
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 52px;
+  width: 100%;
+  max-height: 1;
+  max-width: 626px;
+  color: #fff;
+}
+
+.promo__image {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 722px;
+  height: 244px;
+  margin: 0;
+  background-image: url(../../../images/landing.svg);
+  background-repeat: no-repeat;
+  background-size: 722px 244px;
+  background-position: 50%;
+}
+
+@media screen and (max-width: 1280px) {
+  .promo {
+    padding-right: calc((100vw - 768px) / (1280 - 768) * (70 - 44) + 44px);
+    padding-left: calc((100vw - 768px) / (1280 - 768) * (70 - 44) + 44px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .promo {
+    max-height: 844px;
+    padding: 0 44px 70px;
+  }
+
+  .promo__description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .promo__title {
+    position: relative;
+    text-align: center;
+    padding-top: calc((100vw - 768px) / (1280 - 768) * (100 - 50) + 250px);
+    padding-bottom: calc((100vw - 768px) / (1280 - 768) * (100 - 60) + 100px);
+  }
+
+  .promo__image {
+    background-size: 680px 230px;
+    background-position: 50%;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .promo {
+    padding: 0 10px 0px;
+    max-height: 630px;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .promo__title {
+    padding-top: 183px;
+    padding-bottom: 0px;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.04em;
+  }
+  .promo__image {
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+}
