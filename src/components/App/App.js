@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -12,6 +13,7 @@ import { cards } from "../../utils/card";
 import "./App.css";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
   const [isMobileMenuOpen, toggleMobileMenu] = React.useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -32,6 +34,7 @@ function App() {
   }
 
   return (
+    <CurrentUserContext.Provider value={currentUser} >
     <div className="app">
       <div className="app__content">
         <Header
@@ -70,6 +73,8 @@ function App() {
         <Footer />
       </div>
     </div>
+    </CurrentUserContext.Provider>
+
   );
 }
 
