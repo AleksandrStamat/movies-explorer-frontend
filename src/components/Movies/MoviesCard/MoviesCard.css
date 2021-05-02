@@ -1,0 +1,105 @@
+.movies-card {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 6px;
+  background: #fdfdfd;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.movies-card__header {
+  display: flex;
+  padding: 14px 14px 0 14px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.movies-card__title {
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 18px;
+  overflow: hidden;
+  width: calc(100% - 70px);
+  margin: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #000;
+}
+
+.movies-card__time {
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 18px;
+  margin: 0;
+  color: #8b8b8b;
+  padding: 0 0 14px 14px;
+}
+.movies-card__image {
+  width: 100%;
+  object-position: center;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity ease-in 0.2s;
+}
+
+.movies-card__image:hover {
+  opacity: 0.6;
+}
+
+.movies-card__button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  background-image: url("../../../images/save_disable.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: opacity ease-in 0.2s;
+}
+.movies-card__button_active {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  background-image: url("../../../images/save_active.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: opacity ease-in 0.2s;
+}
+.movies-card__button_delete {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  background-image: url("../../../images/delete.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: opacity ease-in 0.2s;
+}
+
+.movies-card__button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 400px) {
+  .movies-card__header {
+    padding: 17px 13px;
+  }
+
+  .movies-card__title {
+    font-size: 12px;
+    max-width: calc(100% - 50px);
+  }
+
+  .movies-card__time {
+    font-size: 10px;
+    width: 50px;
+  }
+}
