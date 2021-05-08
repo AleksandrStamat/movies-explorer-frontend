@@ -77,11 +77,11 @@
   font-weight: normal;
   font-style: normal;
   line-height: 12px;
-  visibility: hidden;
   width: 100%;
   margin-top: 3px;
   text-align: right;
   color: #ee3465;
+  min-height: 12px;
 }
 
 .profile__error_visible {
