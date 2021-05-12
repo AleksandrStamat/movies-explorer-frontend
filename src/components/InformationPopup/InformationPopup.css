@@ -13,7 +13,7 @@
   height: 100%;
   transition: all 0.5s ease;
   opacity: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .information-popup_opened {
@@ -36,13 +36,13 @@
 
 .information-popup__title {
   font-family: "Inter", "Arial", "Helvetica", sans-serif;
-  font-size: 39px;
+  font-size: 28px;
   font-weight: normal;
   font-style: normal;
-  line-height: 50px;
+  line-height: 32px;
   margin: 0;
   text-align: center;
-  color: #8b8b8b;
+  color: #000;
 }
 
 .information-popup__submit {
@@ -60,7 +60,7 @@
   color: #fff;
   border: none;
   border-radius: 2px;
-  outline: none;
+  outline: 0;
   background-color: #ff6838;
 }
 

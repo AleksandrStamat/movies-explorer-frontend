@@ -170,10 +170,9 @@
     overflow: hidden;
     background: none;
     border: none;
-    outline: none;
+    outline: 0;
     text-indent: -9999px;
     cursor: pointer;
-    outline: none;
     box-sizing: border-box;
   }
 }

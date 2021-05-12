@@ -1,17 +1,18 @@
 import React from "react";
-import { Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch, NavLink, useLocation } from "react-router-dom";
 import ProfileIcon from "../../images/profile.svg";
 import "./Navigation.css";
 
 function Navigation(props) {
   const { isOpen, onClose } = props;
+  const location = useLocation();
 
   function handleClickLayoutMenuClose(e) {
     if (e.target === e.currentTarget) {
       onClose();
     }
   }
-
+  const isMain = location.pathname === "/";
   return (
     <>
       <div className="navigation">
@@ -65,18 +66,18 @@ function Navigation(props) {
       </div>
 
       <Switch>
-        <Route path={["/movies", "/saved-movies", "/profile"]}>
+        <Route path={["/","/movies", "/saved-movies", "/profile"]}>
           <nav className="navigation__movies-container">
             <NavLink
               to="/movies"
-              className="navigation__movies-link"
+              className= {isMain ? "navigation__movies-link_main" : "navigation__movies-link"}
               activeClassName="navigation__movies-link_active"
             >
               Фильмы
             </NavLink>
             <NavLink
               to="/saved-movies"
-              className="navigation__movies-link"
+              className= {isMain ? "navigation__movies-link_main" : "navigation__movies-link"}
               activeClassName="navigation__movies-link_active"
             >
               Сохранённые фильмы

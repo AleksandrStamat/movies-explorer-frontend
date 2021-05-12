@@ -100,14 +100,21 @@
 
 .navigation__movies-link {
   font-family: "Inter", "Arial", sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 18px;
   text-decoration: none;
   color: #000;
 }
-
+.navigation__movies-link_main {
+  color: #fff;
+  text-decoration: none;
+}
 .navigation__movies-link:hover {
+  opacity: 0.6;
+  transition: ease 0.3s;
+}
+.navigation__movies-link_main:hover {
   opacity: 0.6;
   transition: ease 0.3s;
 }
