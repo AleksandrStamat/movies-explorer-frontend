@@ -4,8 +4,9 @@ class MainApi {
     this.headers = options.headers;
   }
 
-  errorCheck(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  async errorCheck(res) {
+    const msg = await res.json();
+    return res.ok ? msg : Promise.reject(msg);
   }
 
   getUserData(token) {
@@ -29,43 +30,35 @@ class MainApi {
     }).then(this.errorCheck);
   }
 
-  getSavedMovies() {
-    return fetch(`${this.baseUrl}/movies`, { headers: this.headers }).then(
+  getSavedMovies(token) {
+    return fetch(`${this.baseUrl}/movies`, { 
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(
       this.errorCheck
     );
   }
 
-  deleteMovie(movieId) {
+  deleteMovie(movieId, token) {
     return fetch(`${this.baseUrl}/movies/${movieId}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
     }).then(this.errorCheck);
   }
 
-  saveMovie(movie) {
+  saveMovie(movie, token) {
     return fetch(`${this.baseUrl}/movies`, {
       method: "POST",
-      body: JSON.stringify({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: movie.image,
-        trailer: movie.trailer,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-        thumbnail: movie.image,
-        movieId: movie.movieId,
-      }),
-      headers: this.headers,
-    }).then(this.errorCheck);
-  }
-
-  changeSavedMovieStatus(movieId, like) {
-    return fetch(`${this.baseUrl}/movies/${movieId}`, {
-      method: like ? "PUT" : "DELETE",
-      headers: this.headers,
+      body: JSON.stringify(movie),
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      }
     }).then(this.errorCheck);
   }
 

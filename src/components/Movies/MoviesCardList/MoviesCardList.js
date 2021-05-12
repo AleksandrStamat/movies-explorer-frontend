@@ -2,15 +2,22 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
-function MoviesCardList({ cards }) {
-  const countCards =
-    window.screen.width > 768 ? 12 : window.screen.width > 400 ? 8 : 5;
-  const cardElements = cards.slice(0, countCards).map((item) => (
-    <li key={item.id}>
-      <MoviesCard data={item} />
-    </li>
-  ));
-  return <ul className="movies-cards">{cardElements}</ul>;
+function MoviesCardList({ cards, viewsCount, saveMovie, deleteMovie }) {
+  const cardElements =
+    cards &&
+    cards
+      .filter((card, index) => index < viewsCount)
+      .map((item) => {
+        return (
+          <MoviesCard
+            key={item.id || item.movieId}
+            card={item}
+            saveMovie={saveMovie}
+            deleteMovie={deleteMovie}
+          />
+        );
+      });
+  return <div className="movies-cards">{cardElements}</div>;
 }
 
 export default MoviesCardList;

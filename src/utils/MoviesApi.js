@@ -12,8 +12,7 @@ class MovieApi {
     return fetch(`${this.baseUrl}`, {
       headers: this.headers 
     })
-    .then(this.errorCheck
-    );
+    .then(this.errorCheck);
   }
 }
 

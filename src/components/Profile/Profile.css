@@ -65,10 +65,12 @@
   color: #000;
   border: none;
   background: none;
+  outline: 0;
 }
 
 .profile__input_error {
   color: #ee3465;
+  border-bottom: 1px solid #ee3465;
 }
 
 .profile__error {
@@ -113,7 +115,7 @@
   margin-bottom: 0;
 }
 
-.profile__btn_type_exit {
+.profile__btn_exit {
   font-weight: 500;
   color: #ee3465;
 }
