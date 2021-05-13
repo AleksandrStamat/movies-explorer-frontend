@@ -39,6 +39,7 @@ function Login({ handleSignIn, handleSignUp, isLogin }) {
               name="name"
               label="Имя"
               type="text"
+              minLenght="2"
               maxLength="30"
               value={validate.values.name || ""}
               required
@@ -75,6 +76,8 @@ function Login({ handleSignIn, handleSignUp, isLogin }) {
             name="password"
             label="Пароль"
             type="password"
+            minLenght="6"
+            maxLength="30"
             value={validate.values.password || ""}
             required
           />
