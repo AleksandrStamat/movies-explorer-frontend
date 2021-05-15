@@ -1,7 +1,13 @@
+.techs {
+  background-image: url(../../../images/landing.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 .techs__heading {
   font-family: "Inter", "Arial", "Helvetica", sans-serif;
   font-size: 50px;
-  font-weight: normal;
+  font-weight: 500;
   font-style: normal;
   line-height: 58px;
   margin: 0 0 26px;
@@ -23,7 +29,7 @@
 .techs__section-title {
   font-family: "Inter", "Arial", "Helvetica", sans-serif;
   font-size: 22px;
-  font-weight: normal;
+  font-weight: 500;
   font-style: normal;
   line-height: 27px;
   width: 100%;
@@ -39,8 +45,8 @@
 
 .techs__text {
   font-family: "Inter", "Arial", "Helvetica", sans-serif;
-  font-size: 14px;
-  font-weight: normal;
+  font-size: 16px;
+  font-weight: 500;
   font-style: normal;
   line-height: 20px;
   max-width: 460px;
@@ -74,7 +80,7 @@
   letter-spacing: -0.04em;
   color: #000;
   border-radius: 10px;
-  background: #e8e8e8;
+  background: #fff;
 }
 
 @media screen and (max-width: 1280px) {
@@ -100,7 +106,7 @@
   .techs__list {
     grid-template:
       calc((100vw - 768px) / (1280 - 768) * (60 - 57) + 57px) /
-      repeat(auto-fit, calc((100vw - 768px) / (1280 - 768) * (90 - 84) + 84px));
+      repeat(auto-fit, calc((100vw - 768px) / (1280 - 768) * (90 - 84) + 75px));
   }
 }
 

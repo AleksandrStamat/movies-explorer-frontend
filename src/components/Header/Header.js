@@ -13,15 +13,18 @@ function Header(props) {
     location.pathname === "/signup" ||
     location.pathname === "/error";
   const isMain = location.pathname === "/";
+  const headerClassName =
+    "header " +
+    (loggedIn && isMain
+      ? "header__grid header__blue"
+      : !loggedIn && isMain
+      ? "header__blue"
+      : "header__grid header__white");
   return (
     <>
       {isAuthOrRegistr ? null : (
-        <header
-          className={`header ${
-            isMain ? " header__blue" : "header__grid header__white"
-          }`}
-        >
-          <Logo className="header__logo" />
+        <header className={headerClassName}>
+          <Logo />
           {!loggedIn ? (
             <nav className="header__auth-container_main-page">
               <NavLink

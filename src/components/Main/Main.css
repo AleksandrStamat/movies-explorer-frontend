@@ -14,7 +14,10 @@
 }
 
 .main__container_blue {
-  background-color: #465dff;
+  background-image: url(../../images/landing.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .main__container_white {
