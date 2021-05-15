@@ -13,7 +13,16 @@ import InformationPopup from "../InformationPopup/InformationPopup";
 import Preloader from "../Preloader/Preloader";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
-import { urlMovies } from "../../utils/constants";
+import {
+  urlMovies,
+  countVisibleCardsDesktop,
+  countVisibleCardsTablet,
+  countVisibleCardsMobile,
+  addCardsDesktop,
+  addCardsTablet,
+  addCardsMobile,
+  durationMovies,
+} from "../../utils/constants";
 import "./App.css";
 
 function App() {
@@ -28,12 +37,26 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [viewsCount, setViewsCount] = useState(
-    window.screen.width > 768 ? 12 : window.screen.width > 400 ? 8 : 5
+    window.screen.width > 768
+      ? countVisibleCardsDesktop
+      : window.screen.width > 400
+      ? countVisibleCardsTablet
+      : countVisibleCardsMobile
   );
   const [filter, setFilter] = useState(false);
 
-  function tokenCheck() {
-    const token = localStorage.getItem("token");
+  function visibleError(err) {
+    const message = err?.message;
+    const bodyText = err?.validation?.body?.message;
+    const error = bodyText
+      ? bodyText
+      : message
+      ? message
+      : "Произошла ошибка при обновлении данных";
+    setInformationPopupMessage(error);
+  }
+
+  function tokenCheck(token) {
     if (token) {
       setIsLoading(true);
       getUser(token);
@@ -51,13 +74,16 @@ function App() {
   }
 
   function getMovies(token) {
-    Promise.all([moviesApi.getMovies(), mainApi.getSavedMovies(token)])
+    const localMovies = localStorage.getItem("movies");
+    const arrMovies = localMovies ? JSON.parse(localMovies) : [];
+    const getMovies = arrMovies.length ? arrMovies : moviesApi.getMovies();
+    Promise.all([getMovies, mainApi.getSavedMovies(token)])
       .then(([moviesCard, savedMoviesCard]) => {
         setSavedMovies(savedMoviesCard);
         getSaved(moviesCard, savedMoviesCard);
-        history.push("/");
       })
-      .catch((err) => console.log(err));
+      .catch(visibleError)
+      .finally(() => setIsLoading(false));
   }
 
   function getUser(token) {
@@ -71,9 +97,6 @@ function App() {
       .catch(({ status, message }) => {
         setError({ status, message });
         history.push("/error");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   }
 
@@ -85,9 +108,7 @@ function App() {
         setInformationPopupMessage("Вы успешно зарегистрировались");
         history.push("/signin");
       })
-      .catch(() => {
-        setInformationPopupMessage("Произошла ошибка при регистрации");
-      })
+      .catch(visibleError)
       .finally(() => {
         setIsLoading(false);
       });
@@ -97,14 +118,13 @@ function App() {
     setIsLoading(true);
     mainApi
       .login(email, password)
-      .then((res) => {
-        localStorage.setItem("token", res.token);
-        getUser(res.token);
+      .then(({ token }) => {
+        localStorage.setItem("token", token);
+        getUser(token);
         setInformationPopupMessage("Вы успешно авторизировались");
+        history.push("/movies");
       })
-      .catch(() => {
-        setInformationPopupMessage("Произошла ошибка при авторизации");
-      })
+      .catch(visibleError)
       .finally(() => {
         setIsLoading(false);
       });
@@ -119,9 +139,7 @@ function App() {
         setCurrentUser(res);
         setInformationPopupMessage("Вы успешно изменили данные");
       })
-      .catch(() => {
-        setInformationPopupMessage("Произошла ошибка при обновлении данных");
-      })
+      .catch(visibleError)
       .finally(() => {
         setIsLoading(false);
       });
@@ -134,7 +152,14 @@ function App() {
   }
 
   function handleMore() {
-    setViewsCount(viewsCount + 3);
+    const width = window.screen.width;
+    const numberCount =
+      width >= 1280
+        ? addCardsDesktop
+        : width > 480
+        ? addCardsTablet
+        : addCardsMobile;
+    setViewsCount(viewsCount + numberCount);
   }
 
   //Обработчик сохранения фильма в избранное
@@ -163,13 +188,41 @@ function App() {
         setSavedMovies(savedCards);
         getSaved(movies, savedCards);
       })
-      .catch(() => {
-        setInformationPopupMessage("Произошла ошибка при обновлении данных");
-      });
+      .catch(visibleError);
   }
 
+  function filterMovies(cards, keyword) {
+    return cards.filter(({ nameRU, nameEN }) => {
+      if (!keyword) {
+        return true;
+      }
+      if (typeof nameRU !== "string" || typeof nameEN !== "string") {
+        return false;
+      }
+      const ru = nameRU.toLowerCase();
+      const en = nameEN.toLowerCase();
+      const word = keyword.toLowerCase();
+      return ru.indexOf(word) !== -1 || en.indexOf(word) !== -1;
+    });
+  }
+
+  function onSearch(keyword) {
+    moviesApi.getMovies().then((cards) => {
+      const searchCards = filterMovies(cards, keyword);
+      getSaved(searchCards, savedMovies);
+      localStorage.setItem("movies", JSON.stringify(searchCards));
+    });
+  }
+  function onSearchSaved(keyword) {
+    const token = localStorage.getItem("token");
+    mainApi.getSavedMovies(token).then((cards) => {
+      const searchCards = filterMovies(cards, keyword);
+      setSavedMovies(searchCards);
+    });
+  }
   //Обработчик удаления фильма из избранного
   function handleDeleteMovie(movieId) {
+    console.log(movieId);
     const token = localStorage.getItem("token");
     mainApi
       .deleteMovie(movieId, token)
@@ -180,11 +233,9 @@ function App() {
         setSavedMovies(savedCards);
         getSaved(movies, savedCards);
       })
-      .catch(() => {
-        setInformationPopupMessage("Произошла ошибка при обновлении данных");
-      });
+      .catch(visibleError);
   }
-  
+
   //Обработчик информационного попапа
   function handleSubmitInformationPopup() {
     setInformationPopupMessage("");
@@ -203,10 +254,13 @@ function App() {
   }
 
   function filterDuration(card) {
-    return filter ? card.duration <= 40 : true;
+    return filter ? card.duration <= durationMovies : true;
   }
   useEffect(() => {
-    tokenCheck();
+    const token = localStorage.getItem("token");
+    if (token) {
+      tokenCheck(token);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -214,63 +268,73 @@ function App() {
     <CurrentUserContext.Provider value={{ ...currentUser }}>
       <div className="app">
         <div className="app__content">
-          <Header
-            isOpen={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-            onOpenMobileMenu={handleMobileMenuOpen}
-            loggedIn={loggedIn}
-          />
-          <Switch>
-            <ProtectedRoute
-              path="/saved-movies"
-              loggedIn={loggedIn}
-              cards={savedMovies.filter(filterDuration)}
-              component={Movies}
-              saveMovie={handleSaveMovie}
-              deleteMovie={handleDeleteMovie}
-              viewsCount={viewsCount}
-              handleMore={handleMore}
-              handleFilter={handleFilter}
-              filter={filter}
-            />
-            <ProtectedRoute
-              path="/movies"
-              viewsCount={viewsCount}
-              loggedIn={loggedIn}
-              cards={movies.filter(filterDuration)}
-              handleMore={handleMore}
-              component={Movies}
-              saveMovie={handleSaveMovie}
-              deleteMovie={handleDeleteMovie}
-              handleFilter={handleFilter}
-              filter={filter}
-            />
-            <ProtectedRoute
-              path="/profile"
-              loggedIn={loggedIn}
-              onSignOut={handleSignOut}
-              handleUpdate={handleUpdate}
-              component={Profile}
-            />
-            <Route path="/error">
-              <Error message={error.message} status={error.status} />
-            </Route>
-            <Route path="/signin">
-              <Auth
-                handleSignIn={handleSignIn}
-                handleSignUp={handleSignUp}
-                isLogin={true}
+          {isLoading ? (
+            <Preloader />
+          ) : (
+            <>
+              <Header
+                isOpen={isMobileMenuOpen}
+                onClose={handleMobileMenuClose}
+                onOpenMobileMenu={handleMobileMenuOpen}
+                loggedIn={loggedIn}
               />
-            </Route>
-            <Route path="/signup">
-              <Auth handleSignIn={handleSignIn} handleSignUp={handleSignUp} />
-            </Route>
-            <Route exact path="/">
-              <Main />
-            </Route>
-          </Switch>
-          <Footer />
-          {isLoading && <Preloader />}
+              <Switch>
+                <ProtectedRoute
+                  path="/saved-movies"
+                  loggedIn={loggedIn}
+                  cards={savedMovies.filter(filterDuration)}
+                  component={Movies}
+                  saveMovie={handleSaveMovie}
+                  deleteMovie={handleDeleteMovie}
+                  viewsCount={viewsCount}
+                  handleMore={handleMore}
+                  handleFilter={handleFilter}
+                  filter={filter}
+                  onSearch={onSearchSaved}
+                />
+                <ProtectedRoute
+                  path="/movies"
+                  viewsCount={viewsCount}
+                  loggedIn={loggedIn}
+                  cards={movies.filter(filterDuration)}
+                  handleMore={handleMore}
+                  component={Movies}
+                  saveMovie={handleSaveMovie}
+                  deleteMovie={handleDeleteMovie}
+                  handleFilter={handleFilter}
+                  filter={filter}
+                  onSearch={onSearch}
+                />
+                <ProtectedRoute
+                  path="/profile"
+                  loggedIn={loggedIn}
+                  onSignOut={handleSignOut}
+                  handleUpdate={handleUpdate}
+                  component={Profile}
+                />
+                <Route path="/error">
+                  <Error message={error.message} status={error.status} />
+                </Route>
+                <Route path="/signin">
+                  <Auth
+                    handleSignIn={handleSignIn}
+                    handleSignUp={handleSignUp}
+                    isLogin={true}
+                  />
+                </Route>
+                <Route path="/signup">
+                  <Auth
+                    handleSignIn={handleSignIn}
+                    handleSignUp={handleSignUp}
+                  />
+                </Route>
+                <Route path="/">
+                  <Main />
+                </Route>
+              </Switch>
+              <Footer />
+            </>
+          )}
           <InformationPopup
             message={informationPopupOpenMessage}
             onSubmit={handleSubmitInformationPopup}

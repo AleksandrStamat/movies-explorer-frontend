@@ -3,7 +3,7 @@ import { useFormWithValidation } from "../../utils/formValidation";
 import "./Auth.css";
 import Logo from "../Logo/Logo";
 
-function Login({ handleSignIn, handleSignUp, isLogin }) {
+function Auth({ handleSignIn, handleSignUp, isLogin }) {
   const validate = useFormWithValidation();
   const title = isLogin ? "Рады видеть!" : "Добро пожаловать!";
   const paragraph = isLogin
@@ -39,7 +39,7 @@ function Login({ handleSignIn, handleSignUp, isLogin }) {
               name="name"
               label="Имя"
               type="text"
-              minLenght="2"
+              minLength="2"
               maxLength="30"
               value={validate.values.name || ""}
               required
@@ -76,7 +76,7 @@ function Login({ handleSignIn, handleSignUp, isLogin }) {
             name="password"
             label="Пароль"
             type="password"
-            minLenght="6"
+            minLength="6"
             maxLength="30"
             value={validate.values.password || ""}
             required
@@ -103,4 +103,4 @@ function Login({ handleSignIn, handleSignUp, isLogin }) {
   );
 }
 
-export default Login;
+export default Auth;

@@ -10,13 +10,12 @@ class MainApi {
   }
 
   getUserData(token) {
-    return fetch(`${this.baseUrl}/users/me`, { 
+    return fetch(`${this.baseUrl}/users/me`, {
       headers: {
         ...this.headers,
         Authorization: `Bearer ${token}`,
-      } 
-    })
-    .then(this.errorCheck);
+      },
+    }).then(this.errorCheck);
   }
 
   editUser(user, token) {
@@ -31,14 +30,12 @@ class MainApi {
   }
 
   getSavedMovies(token) {
-    return fetch(`${this.baseUrl}/movies`, { 
+    return fetch(`${this.baseUrl}/movies`, {
       headers: {
         ...this.headers,
         Authorization: `Bearer ${token}`,
-      }
-    }).then(
-      this.errorCheck
-    );
+      },
+    }).then(this.errorCheck);
   }
 
   deleteMovie(movieId, token) {
@@ -58,7 +55,7 @@ class MainApi {
       headers: {
         ...this.headers,
         Authorization: `Bearer ${token}`,
-      }
+      },
     }).then(this.errorCheck);
   }
 
