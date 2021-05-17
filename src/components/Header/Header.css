@@ -60,8 +60,8 @@
   font-family: "Inter", "Arial", sans-serif;
   text-decoration: none;
   background-color: #fff;
-  border-radius: 20px;
-  padding: 5px 10px;
+  border-radius: 3px;
+  padding: 8px 10px;
 }
 
 .header__link_signin {
@@ -201,6 +201,12 @@
   .header {
     padding: 18px 14px 18px 14px;
   }
+}
+.header__blue {
+  background-image: url(../../images/header.jpg);
+  background-size: cover;
+  background-position: top;
+  background-attachment: scroll;
 }
 
 @media screen and (max-width: 767px) {

@@ -111,6 +111,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .techs {
+    background-attachment: scroll;
+  }
   .techs__section {
     padding-right: calc((100vw - 400px) / (768 - 400) * (50 - 18) + 18px);
     padding-left: calc((100vw - 400px) / (768 - 400) * (50 - 18) + 18px);
