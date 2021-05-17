@@ -15,7 +15,7 @@ function Main() {
       <div className="main__container main__container_white">
         <AboutProject />
       </div>
-      <div className="main__container main__container_gray">
+      <div className="main__container main__container_blue">
         <Techs />
       </div>
       <div className="main__container main__container_white">

@@ -9,11 +9,11 @@
 .footer__title {
   margin: 0 0 20px 0;
   font-family: "Inter", "Arial", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 16px;
   text-align: center;
-  color: #8b8b8b;
+  color: #000;
 }
 
 .footer__copyright {
@@ -26,7 +26,7 @@
 .footer__copyright-date {
   margin: 18px 0 0 0;
   font-family: "Inter", "Arial", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 16px;
   color: #000;
@@ -43,7 +43,7 @@
 .footer__link {
   margin: 0;
   font-family: "Inter", "Arial", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 16px;
   text-decoration: none;
