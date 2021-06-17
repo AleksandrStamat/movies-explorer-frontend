@@ -81,7 +81,7 @@ class MainApi {
 
 const mainApi = new MainApi({
   // baseUrl: "http://localhost:3000",
-  baseUrl: "https://api.movies.stamat.nomoredomains.icu",
+  baseUrl: "https://api.astamat.ru",
   headers: {
     "Content-Type": "application/json",
   },

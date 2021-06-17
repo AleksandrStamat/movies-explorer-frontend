@@ -43,6 +43,8 @@
 
 @media screen and (max-width: 768px) {
   .promo {
+    background-position: right;
+    background-attachment: scroll;
     max-height: 844px;
     padding: 0 44px 70px;
   }
