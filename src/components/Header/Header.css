@@ -201,12 +201,12 @@
   .header {
     padding: 18px 14px 18px 14px;
   }
-}
-.header__blue {
-  background-image: url(../../images/header.jpg);
-  background-size: cover;
-  background-position: top;
-  background-attachment: scroll;
+  .header__blue {
+    background-image: url(../../images/header.jpg);
+    background-size: cover;
+    background-position: top;
+    background-attachment: scroll;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -219,5 +219,8 @@
   .header__link_signin {
     width: 54px;
     height: 26px;
+  }
+  .header__link_signup {
+    padding: 5px 10px;
   }
 }
