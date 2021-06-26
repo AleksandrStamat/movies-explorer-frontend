@@ -202,9 +202,9 @@
     padding: 18px 14px 18px 14px;
   }
   .header__blue {
-    background-image: url(../../images/header.jpg);
+    background-image: url(../../images/header.jpeg);
     background-size: cover;
-    background-position: top;
+    background-position: right;
     background-attachment: scroll;
   }
 }
