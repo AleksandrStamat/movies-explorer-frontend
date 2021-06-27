@@ -1,10 +1,10 @@
-# Getting Started with Create React App
+# Frontend приложения Movies-Explorer.  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+------------------------- ------------------------- -------------------------  
 
-## Available Scripts
+Сервис, в котором можно регистрироваться, авторизовываться, редактировать информацию о пользователе, выполнять поиск по фильмам и сохранять понравившиеся Вам фильмы.    
 
-In the project directory, you can run:
+[Movies-Explorer](https://movies.stamat.nomoredomains.icu).  
 
 ### `npm start`
 
